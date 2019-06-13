@@ -1,0 +1,22 @@
+{
+  "name": "greatlakesfitness",
+  "version": "1.0.0",
+  "description": "Find local personal trainers and schedule workouts!",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cariasp27/greatlakesfitness.git"
+  },
+  "author": "Paul Leonard Carias",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cariasp27/greatlakesfitness/issues"
+  },
+  "homepage": "https://github.com/cariasp27/greatlakesfitness#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
