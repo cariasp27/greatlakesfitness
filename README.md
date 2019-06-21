@@ -1,3 +1,0 @@
-# Great Lakes Fitness
-*Where It All Began*
-    Throughout my youth, my weight and body image were a bobbing boat. I ranged from 145 lbs to 205 lbs fluccuating like a sine wave. Finally, around the age of 19, I decided to take my health seriously. I went to the gym daily, it got to the point where I was antsy if I had not gone to the gym that day. My health, body image, and attitude all benefitted from my devotion to being active. I am more than joyed to share the great feeling that comes from putting in the work and seeing the results for yourself so I had dreams of becoming a personal trainer. I even planned workouts for a couple of friends of mine for us to do and pushed the both of us through them. I am a busy man and 

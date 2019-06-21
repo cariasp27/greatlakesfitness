@@ -1,0 +1,19 @@
+.App {
+  text-align: center;
+}
+.navbar {
+  background-color: aqua;
+  margin-top: auto;
+}
+#trainerSU {
+  position: relative;
+  left: -210px;
+  bottom: -10px;
+}
+#top-filler {
+  margin-bottom: auto;
+}
+
+#nav-container {
+  align-items: flex-end;
+}

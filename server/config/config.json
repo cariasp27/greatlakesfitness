@@ -1,0 +1,22 @@
+{
+  "development": {
+    "username": "root",
+    "password": "Pikapee889900seven",
+    "database": "glt",
+    "host": "localhost",
+    "dialect": "mysql",
+    "timezone": "-04:00"
+  },
+  "test": {
+    "username": "",
+    "password": null,
+    "database": "",
+    "host": "",
+    "dialect": "mysql"
+  },
+  "production": {
+    "use_env_variable": "JAWSDB_URL",
+    "dialect": "mysql",
+    "timezone": "-04:00"
+  }
+}
