@@ -1,16 +1,16 @@
 const express = require('express')
 const router = express.Router()
-const User = require('../models/user')
-const passport = require('../config/passport/passport.js')
+const db = require('../models/user')
+var passport = require('passport');
 
 router.post('/', (req, res) => {
     console.log('user signup');
 
     const { username, password } = req.body;
     // ADD VALIDATION
-    User.findOne({where: { username: username }}), (err, user) => {
+    db.findOne({where: { username: username }}), (err, user) => {
         if (err) {
-            console.log('User.js post error: ', err)
+            console.log('db.js post error: ', err)
         } else if (user) {
             return done(null, false, { message: 'That username is already taken' });
         }
@@ -21,7 +21,7 @@ router.post('/', (req, res) => {
               password: password,
             };
             // create a new user in the database
-            User.create(data).then(function (newUser, created) {
+            db.create(data).then(function (newUser, created) {
               if (!newUser) {
                 return done(null, false);
               }

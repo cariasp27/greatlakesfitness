@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Redirect } from 'react-router-dom'
 import Jumbotron from "../components/jumbotron"
 import axios from 'axios';
 import "./style.css"
