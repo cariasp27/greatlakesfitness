@@ -1,6 +1,6 @@
 module.exports = function (app,passport){
-//////////////////////////////////////////////////////////////
-app.post('/user',
+//////////////////// sign up //////////////////////////////////////////
+app.post('/signup',
     function (req, res, next) {
     console.log("\n /////////////////////////////////////////////////////////////////////")
     next()
@@ -16,16 +16,16 @@ passport.authenticate('local-signup'),
 
 
 app.post(
-    '/user/login',
+    '/login',
     function (req, res, next) {
         console.log("\n/////////////////////////////////////////////////////////////////////")
-        console.log('\n PASSPORT SIGNIN AUTHENTICATION \n');
+        console.log('\n PASSPORT LOGIN AUTHENTICATION \n');
         next()
     },
 
     // Right here is where i would do a second authentication using the trainer strategy
     // Reasearch this more in depth
-    passport.authenticate('local-signin'),
+    passport.authenticate('local-login'),
     (req, res) => {
         var userInfo = {
             username: req.user.username

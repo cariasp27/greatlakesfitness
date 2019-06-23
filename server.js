@@ -1,11 +1,10 @@
-const express = require('express')
+const express  = require('express')
 const passport = require('passport')
-const morgan = require('morgan')
-const session = require('express-session')
-const models = require('./models')
-const app = express()
-const PORT = 8080
-
+const morgan   = require('morgan')
+const session  = require('express-session')
+const models   = require('./models')
+const app      = express()
+const PORT     = 8080
 
 // MIDDLEWARE
 app.use(morgan('dev'))
@@ -22,9 +21,9 @@ app.use(
 // Passport
 app.use(passport.initialize())
 app.use(passport.session())
-
+// Routes
 require('./routes/auth')(app, passport);
-
+// Passport & Sequelize
 require('./config/passport/passport.js')(passport, models.user);
 
 var syncOptions = { force: false };

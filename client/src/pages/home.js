@@ -21,7 +21,6 @@ import "./style.css"
   
     componentDidMount() {
       this.getUser()
-      console.log("current state: "+this.state)
     }
   
     updateUser (userObject) {
@@ -33,13 +32,13 @@ import "./style.css"
         console.log('Get user response: ')
         console.log(response.data)
         if (response.data.user) {
-          console.log('Get User: There is a user saved in the server session: ')
+          console.log('There is a user saved in the server session: ')
           this.setState({
             loggedIn: true,
             username: response.data.user.username
           })
         } else {
-          console.log('Get user: no user');
+          console.log('NO USER');
           this.setState({
             loggedIn: false,
             username: null,
@@ -54,7 +53,7 @@ import "./style.css"
       return <Redirect to={{ pathname: this.state.redirectTo }} />
   } else {
       const loggedIn = this.props.loggedIn;
-      console.log('books render, props: ')
+      console.log('Home has rendered with the following props: ')
       console.log(this.props);
       
       return (

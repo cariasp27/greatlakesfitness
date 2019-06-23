@@ -67,7 +67,7 @@ class App extends Component {
     path="/login"
      render={() =>
        <LoginForm
-         updateUser={this.updateUser} loggedIn={this.state.loggedIn}
+         updateUser={this.updateUser}
        />} />
    
    <Route

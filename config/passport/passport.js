@@ -59,8 +59,8 @@ module.exports = function (passport, user) {
       });
     }
   ));
-  //LOCAL SIGNIN
-  passport.use('local-signin', new LocalStrategy(
+  //LOCAL LOGIN
+  passport.use('local-login', new LocalStrategy(
     {
       usernameField: 'username',
       passwordField: 'password',
@@ -85,7 +85,7 @@ module.exports = function (passport, user) {
       
       }).catch(function (err) {
         console.log("Error:", err);
-        return done(null, false, { message: 'Something went wrong with your Signin' });
+        return done(null, false, { message: 'Something went wrong with your Login' });
       });
     }
   ));

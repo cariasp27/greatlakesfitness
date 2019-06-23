@@ -26,25 +26,30 @@ class Signup extends Component {
 		console.log(this.state.username)
 
 		//request to server to add a new username/password
-		axios.post('/user', {
+		axios.post('/signup', {
 			username: this.state.username,
 			password: this.state.password
 		})
 			.then(response => {
-				console.log(response)
-				if (!response.data.errmsg) {
-					console.log('successful signup')
-					this.setState({ //redirect to login page
-						redirectTo: '/home'
-					})
-				} else {
-					console.log('username already taken')
-				}
-			}).catch(error => {
-				console.log('signup error: ')
-				console.log(error)
-
-			})
+                console.log('signup response: ')
+                console.log(response)
+                if (response.status === 200) {
+                    // update App.js state
+                    this.props.updateUser({
+                        loggedIn: true,
+                        username: response.data.username
+                    })
+                    // update the state to redirect to home
+                    this.setState({
+                        redirectTo: '/home'
+                    })
+                }
+            }).catch(error => {
+                console.log('Something went Wrong')
+                alert("invalid username/password");
+                console.log(error);
+                
+            })
 	}
 
 
