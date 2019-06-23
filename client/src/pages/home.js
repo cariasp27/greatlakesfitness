@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Jumbotron from "../components/jumbotron"
+import LoginForm from './login-form'
 import axios from 'axios';
 import "./style.css"
 
@@ -27,7 +28,7 @@ import "./style.css"
     }
   
     getUser() {
-      axios.get('/user/').then(response => {
+      axios.get('/user').then(response => {
         console.log('Get user response: ')
         console.log(response.data)
         if (response.data.user) {
@@ -72,13 +73,7 @@ import "./style.css"
             </div>
           </div>
       // render bottom if not logged in
-      ) : (
-              <section className="bloop">
-
-                  <span className="text-secondary">Login or Sign up</span>
-              </section>
-            
-          )}
+      ) : (<LoginForm></LoginForm>)}
           </div>
       );
     }

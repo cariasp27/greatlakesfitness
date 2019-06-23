@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
 import axios from 'axios';
-import { Route } from 'react-router-dom';
-// components
-import Signup from './components/sign-up';
-import LoginForm from './components/login-form';
+import React, { Component } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+// Components
+import Signup from './pages/sign-up';
+import LoginForm from './pages/login-form';
 import Navbar from './components/navbar';
-import Home from './pages/Home'
+import Home from './pages/home'
 
 class App extends Component {
   constructor() {
@@ -21,7 +21,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.getUser()
+  this.getUser()
   }
 
   updateUser (userObject) {
@@ -29,7 +29,7 @@ class App extends Component {
   }
 
   getUser() {
-    axios.get('/user/').then(response => {
+    axios.get('/user').then(response => {
       console.log('Get user response: ')
       console.log(response.data)
       if (response.data.user) {
@@ -49,33 +49,36 @@ class App extends Component {
   }
 
   render() {
-    return (
-      <div className="App">
+  return (
+    <Router>
+       <div className="App">
    
-        <Navbar updateUser={this.updateUser} loggedIn={this.state.loggedIn} />
-        {/* Routes to different components */}
-        <Route
-          exact path="/"
-          render={() =>
-            <LoginForm
-              updateUser={this.updateUser}
-            />} />
-        <Route
-          path="/home"
-          render={() =>
-            <Home
-              updateUser={this.updateUser}  loggedIn={this.state.loggedIn}
-            />}
-        />
-        <Route
-          path="/signup"
-          render={() =>
-            <Signup/>}
-        />
-
-      </div>
-    );
-  }
+   <Navbar updateUser={this.updateUser} loggedIn={this.state.loggedIn} />
+   {/* Routes to different components */}
+   <Route
+     exact path="/"
+     render={() =>
+       <LoginForm
+         updateUser={this.updateUser}
+       />} />
+       <Switch>
+   <Route
+     path="/home"
+     render={() =>
+       <Home
+         updateUser={this.updateUser}  loggedIn={this.state.loggedIn}
+       />}
+   />
+   <Route
+     path="/signup"
+     render={() =>
+       <Signup/>}
+   />
+</Switch>
+ </div>
+    </Router>
+  );
+}
 }
 
 export default App;
