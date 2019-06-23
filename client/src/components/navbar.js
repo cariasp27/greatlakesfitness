@@ -6,6 +6,10 @@ import axios from 'axios'
 class Navbar extends Component {
     constructor() {
         super()
+        this.state = {
+            redirectTo: null
+        }
+
         this.logout = this.logout.bind(this)
     }
 
@@ -25,7 +29,7 @@ class Navbar extends Component {
         })
     }
 
-    render() {
+    render() {  
         const loggedIn = this.props.loggedIn;
         console.log('navbar render, props: ')
         console.log(this.props);
@@ -46,7 +50,7 @@ class Navbar extends Component {
                                 <Link to="/signup" className="btn btn-link">
                                     <span className="text-secondary">Sign Up</span>
                                 </Link>
-                                <Link to="/" className="btn btn-link">
+                                <Link to="/login" className="btn btn-link">
                                     <span className="text-secondary">Login</span>
                                 </Link>
                             </section>

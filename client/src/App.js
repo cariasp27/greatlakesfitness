@@ -1,11 +1,13 @@
 import axios from 'axios';
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import "./App.css"
 // Components
 import Signup from './pages/sign-up';
 import LoginForm from './pages/login-form';
 import Navbar from './components/navbar';
 import Home from './pages/home'
+import Welcome from './pages/welcome'
 
 class App extends Component {
   constructor() {
@@ -29,6 +31,7 @@ class App extends Component {
   }
 
   getUser() {
+    console.log("Component did mount AXIOS GET USER")
     axios.get('/user').then(response => {
       console.log('Get user response: ')
       console.log(response.data)
@@ -55,13 +58,18 @@ class App extends Component {
    
    <Navbar updateUser={this.updateUser} loggedIn={this.state.loggedIn} />
    {/* Routes to different components */}
+   <Switch>
+    <Route 
+    exact path ='/'
+    render={() =>
+    <Welcome /> }/>
    <Route
-     exact path="/"
+    path="/login"
      render={() =>
        <LoginForm
-         updateUser={this.updateUser}
+         updateUser={this.updateUser} loggedIn={this.state.loggedIn}
        />} />
-       <Switch>
+   
    <Route
      path="/home"
      render={() =>
@@ -72,7 +80,7 @@ class App extends Component {
    <Route
      path="/signup"
      render={() =>
-       <Signup/>}
+       <Signup updateUser={this.updateUser}  loggedIn={this.state.loggedIn}/>}
    />
 </Switch>
  </div>

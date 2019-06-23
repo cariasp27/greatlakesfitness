@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Jumbotron from "../components/jumbotron"
-import LoginForm from './login-form'
+import { Redirect } from 'react-router-dom'
 import axios from 'axios';
 import "./style.css"
 
@@ -10,8 +10,8 @@ import "./style.css"
       this.state = {
         loggedIn: false,
         username: null,
-        redirectTo: null,
     //  workouts: [],
+      redirectTo: null
       }
   
       this.getUser = this.getUser.bind(this)
@@ -21,6 +21,7 @@ import "./style.css"
   
     componentDidMount() {
       this.getUser()
+      console.log("current state: "+this.state)
     }
   
     updateUser (userObject) {
@@ -33,11 +34,6 @@ import "./style.css"
         console.log(response.data)
         if (response.data.user) {
           console.log('Get User: There is a user saved in the server session: ')
-        // axios.get(/requests/:id).then(response => {
-        // this.setState({
-        //    workouts: response.data
-        // }) 
-        // })
           this.setState({
             loggedIn: true,
             username: response.data.user.username
@@ -46,13 +42,17 @@ import "./style.css"
           console.log('Get user: no user');
           this.setState({
             loggedIn: false,
-            username: null
+            username: null,
+            redirectTo: '/'
           })
+          
         }
       })
     }
   
-    render() {
+    render() {  if (this.state.redirectTo) {
+      return <Redirect to={{ pathname: this.state.redirectTo }} />
+  } else {
       const loggedIn = this.props.loggedIn;
       console.log('books render, props: ')
       console.log(this.props);
@@ -60,7 +60,6 @@ import "./style.css"
       return (
         <div>
         {loggedIn ? (
-
           <div className='row'>
             <Jumbotron></Jumbotron>
             <div className='col-md-6' id='upcoming'>
@@ -71,12 +70,12 @@ import "./style.css"
               <h1>Pending</h1>
               map workouts where accepted = false
             </div>
-          </div>
-      // render bottom if not logged in
-      ) : (<LoginForm></LoginForm>)}
+          </div>) : (<Redirect to={{ pathname: '/' }}/>)}
+      
           </div>
       );
     }
+  }
   }
   
   export default Home;

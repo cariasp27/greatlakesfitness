@@ -45,6 +45,7 @@ class LoginForm extends Component {
                 }
             }).catch(error => {
                 console.log('login error: ')
+                alert("invalid username/password");
                 console.log(error);
                 
             })
