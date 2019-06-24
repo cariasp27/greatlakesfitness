@@ -2,8 +2,14 @@
   text-align: center;
 }
 .navbar {
-  background-color: aqua;
   margin-top: auto;
+  margin-bottom: 75px;
+}
+#freepik {
+  font-size: 10px;
+  position: relative;
+  right: 0px;
+  bottom: 0px;
 }
 #trainerSU {
   position: relative;

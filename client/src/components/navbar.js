@@ -42,6 +42,9 @@ class Navbar extends Component {
                         <section className="navbar-section">
                             <Link to="#" className="btn btn-link text-secondary" onClick={this.logout}>
                                 <span className="text-secondary">Logout</span></Link>
+                                <Link to="/search" className="btn btn-link">
+                                    <span className="text-secondary">Find A Trainer</span>
+                                </Link>
 
                         </section>
                         // render bottom if not logged in
@@ -55,6 +58,7 @@ class Navbar extends Component {
                                 </Link>
                             </section>
                         )}
+                        <a href="http://www.freepik.com" id='freepik'>Designed by kjpargeter / Freepik</a>
                 </div>
             </div>
 

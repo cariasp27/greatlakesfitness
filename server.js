@@ -5,8 +5,10 @@ const session  = require('express-session')
 const models   = require('./models')
 const app      = express()
 const PORT     = 8080
+const cors = require('cors')
 
 // MIDDLEWARE
+app.use(cors());
 app.use(morgan('dev'))
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -24,7 +26,7 @@ app.use(passport.session())
 // Routes
 require('./routes/auth')(app, passport);
 // Passport & Sequelize
-require('./config/passport/passport.js')(passport, models.user);
+require('./config/passport/passport.js')(passport, models);
 
 var syncOptions = { force: false };
 if (process.env.NODE_ENV === "test") {

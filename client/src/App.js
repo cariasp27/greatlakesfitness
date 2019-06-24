@@ -8,13 +8,16 @@ import LoginForm from './pages/login-form';
 import Navbar from './components/navbar';
 import Home from './pages/home'
 import Welcome from './pages/welcome'
+import Search from './pages/search'
 
 class App extends Component {
   constructor() {
     super()
     this.state = {
       loggedIn: false,
-      username: null
+      username: null,
+      istrainer: false,
+
     }
 
     this.getUser = this.getUser.bind(this)
@@ -82,6 +85,17 @@ class App extends Component {
      render={() =>
        <Signup updateUser={this.updateUser}  loggedIn={this.state.loggedIn}/>}
    />
+     <Route
+     path="/trainersignup"
+     render={() =>
+       <Signup updateUser={this.updateUser}  loggedIn={this.state.loggedIn} istrainer={this.state.istrainer}  />}
+   />
+   <Route
+    path="/search"
+    render={() => 
+    <Search updateUser={this.updateUser}  loggedIn={this.state.loggedIn} />
+    }
+    />
 </Switch>
  </div>
     </Router>

@@ -1,7 +1,8 @@
 var bCrypt = require('bcrypt-nodejs');
-module.exports = function (passport, user) {
+module.exports = function (passport, models) {
 
-  var User = user;
+  var User = models.user;
+  var Trainer = models.trainer;
   var LocalStrategy = require('passport-local').Strategy;
 
   // used to serialize user
@@ -67,7 +68,6 @@ module.exports = function (passport, user) {
       passReqToCallback: true
     },
     function (req, username, password, done) {
-      var User = user;
       // checks the database for matching passwords
       var isValidPassword = function (userpass, password) {
         return bCrypt.compareSync(password, userpass);

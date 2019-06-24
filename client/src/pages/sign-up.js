@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import { Redirect } from 'react-router-dom'
+import { Redirect, Link } from 'react-router-dom'
 
 class Signup extends Component {
 	constructor() {
@@ -54,6 +54,7 @@ class Signup extends Component {
 
 
 render() {
+	const istrainer = this.props.istrainer;
 	if (this.state.redirectTo) {
 		return <Redirect to={{ pathname: this.state.redirectTo }} />
 	} else {
@@ -90,15 +91,28 @@ render() {
 						/>
 					</div>
 				</div>
-				<div className="form-group ">
+				{istrainer ? (
+                      				<div className="form-group ">
+									  <div className="col-7"></div>
+									  <button
+										  className="btn btn-danger"
+										  onClick={this.handleTrainerSubmit}
+										  type="submit"
+									  >Sign up</button>
+								  </div>
+                        // render bottom if not logged in
+                    ) : (				<div className="form-group ">
 					<div className="col-7"></div>
-					<a id='trainerSU' href='/trainersignup'>Trainer?</a>
+					<Link to="/trainersignup" className="btn btn-primary">
+                                    <span className="text-secondary">Trainer?</span>
+                                </Link>
 					<button
-						className="btn btn-primary col-1 col-mr-auto"
+						className="btn btn-primary"
 						onClick={this.handleSubmit}
 						type="submit"
 					>Sign up</button>
-				</div>
+				</div>)}
+
 			</form></center>
 		</div>
 
