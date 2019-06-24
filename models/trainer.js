@@ -1,4 +1,3 @@
-
 module.exports = function (sequelize, Sequelize) {
 
 	var Trainer = sequelize.define('trainer', {
@@ -7,6 +6,15 @@ module.exports = function (sequelize, Sequelize) {
         istrainer: {type: Sequelize.BOOLEAN},
         zipcode: { type: Sequelize.INTEGER}
 	});
+
+	// Trainer.associate = function (models) {
+
+	// 	Trainer.hasMany(models.req, {
+	// 		foreignKey: {
+	// 			allowNull: false
+	// 		}
+	// 	})
+	// }
 
 	return Trainer;
 
