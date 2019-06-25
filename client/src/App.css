@@ -1,6 +1,7 @@
 .App {
   text-align: center;
 }
+.button {padding-right: 10px}
 .navbar {
   margin-top: auto;
   margin-bottom: 75px;

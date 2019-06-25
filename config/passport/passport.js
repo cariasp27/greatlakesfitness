@@ -21,6 +21,7 @@ module.exports = function (passport, models) {
       }
     });
   });
+
   // LOCAL SIGNUP
   passport.use('local-signup', new LocalStrategy(
     {
@@ -60,6 +61,53 @@ module.exports = function (passport, models) {
       });
     }
   ));
+    // LOCAL TRAINER SIGNUP
+    passport.use('local-trainer-signup', new LocalStrategy(
+      {
+        usernameField: 'username',
+        passwordField: 'password',
+        zipcodeField: 'zipcode',
+        isTrainerField: 'isTrainer',
+        passReqToCallback: true
+      },
+      function (req, username, password, zipcode, isTrainer, done) {
+        console.log(username);
+        console.log(zipcode);
+        console.log(isTrainer);
+        // encrypts password
+        var generateHash = function (password) {
+          return bCrypt.hashSync(password, bCrypt.genSaltSync(8), null);
+        };
+        // checks database to see if the username is already taken
+        Trainer.findOne({ where: { username: username } }).then(function (trainer) {
+          // if username is taken..
+          if (trainer) {
+            return done(null, false, { message: 'That username is already taken' });
+          }
+          // if the username is available, encrypt password and create sequelize object for new user
+          else {
+            var userPassword = generateHash(password);
+            var data =
+            {
+              username: username,
+              password: userPassword,
+              zipcode: zipcode,
+              isTrainer: true
+            };
+            console.log(data);
+            // create a new user in the database
+            Trainer.create(data).then(function (newTrainer, created) {
+              if (!newTrainer) {
+                return done(null, false);
+              }
+              if (newTrainer) {
+                return done(null, newTrainer);
+              }
+            });
+          }
+        });
+      }
+    ));
   //LOCAL LOGIN
   passport.use('local-login', new LocalStrategy(
     {
