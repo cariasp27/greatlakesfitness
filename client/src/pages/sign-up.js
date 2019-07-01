@@ -109,6 +109,7 @@ class Signup extends Component {
 				<div className="SignupForm">
 					<h4>Sign up</h4>
 					<center>
+						{/* render this if trainer */}
 						{isTrainer ? (<form className="form-horizontal">
 							<div className="form-group">
 								<div className="col-1 col-ml-auto">
@@ -164,6 +165,7 @@ class Signup extends Component {
 							</div>
 
 						</form>
+						// render below is not trainer
 						) : (<form className="form-horizontal">
 							<div className="form-group">
 								<div className="col-1 col-ml-auto">

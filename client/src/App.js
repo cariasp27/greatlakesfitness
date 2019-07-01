@@ -16,7 +16,7 @@ class App extends Component {
     this.state = {
       loggedIn: false,
       username: null,
-      istrainer: false,
+      isTrainer: false,
 
     }
 
@@ -59,7 +59,7 @@ class App extends Component {
     <Router>
        <div className="App">
    
-   <Navbar updateUser={this.updateUser} loggedIn={this.state.loggedIn} />
+   <Navbar updateUser={this.updateUser} loggedIn={this.state.loggedIn} isTrainer={this.state.isTrainer} />
    {/* Routes to different components */}
    <Switch>
     <Route 

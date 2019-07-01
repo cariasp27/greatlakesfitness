@@ -16,9 +16,20 @@ module.exports = function (passport, models) {
       if (user) {
         done(null, user.get());
       }
+      else if (!user) {
+        Trainer.findOne({ where: { id: id} }).then(function (trainer) {
+          if (trainer) {
+            done(null, trainer.get());
+          }
+          else{
+            done(trainer.errors, null);
+          }
+        })
+      }
       else {
         done(user.errors, null);
       }
+
     });
   });
 
@@ -66,14 +77,12 @@ module.exports = function (passport, models) {
       {
         usernameField: 'username',
         passwordField: 'password',
-        zipcodeField: 'zipcode',
-        isTrainerField: 'isTrainer',
         passReqToCallback: true
       },
-      function (req, username, password, zipcode, isTrainer, done) {
-        console.log(username);
-        console.log(zipcode);
-        console.log(isTrainer);
+      function (req, username, password, done) {
+        console.log(req.body.username +"this is what passport thinks the username is");
+        console.log(req.body.zipcode + "this is what passport thinks the zipcode is");
+        console.log(req.body.isTrainer + "this is what passport thinks the is trainer boolean is");
         // encrypts password
         var generateHash = function (password) {
           return bCrypt.hashSync(password, bCrypt.genSaltSync(8), null);
@@ -91,7 +100,7 @@ module.exports = function (passport, models) {
             {
               username: username,
               password: userPassword,
-              zipcode: zipcode,
+              zipcode: req.body.zipcode,
               isTrainer: true
             };
             console.log(data);
@@ -123,7 +132,17 @@ module.exports = function (passport, models) {
       // search database for existing user
       User.findOne({ where: { username: username } }).then(function (user) {
         if (!user) {
-          return done(null, false, { message: 'username does not exist' });
+          Trainer.findOne({ where: { username: username}}).then(function (trainer) {
+            if(!trainer) {
+              return done(null, false, { message: 'username does not exist' });
+            }
+            if (!isValidPassword(user.password, password)) {
+              return done(null, false, { message: 'Incorrect password.' });
+            }
+            var trainerinfo = trainer.get();
+            return done(null, trainerinfo);
+          
+          })
         }
         if (!isValidPassword(user.password, password)) {
           return done(null, false, { message: 'Incorrect password.' });

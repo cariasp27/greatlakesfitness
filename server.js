@@ -1,3 +1,4 @@
+// PACKAGES
 const express  = require('express')
 const passport = require('passport')
 const morgan   = require('morgan')
@@ -12,7 +13,8 @@ app.use(cors());
 app.use(morgan('dev'))
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-// Sessions
+
+// SESSIONS
 app.use(
   session({
     secret: 'rigudydee',
@@ -20,19 +22,22 @@ app.use(
     saveUninitialized: true
   })
 )
-// Passport
+
+// PASSPORT
 app.use(passport.initialize())
 app.use(passport.session())
-// Routes
-require('./routes/auth')(app, passport);
-// Passport & Sequelize
-require('./config/passport/passport.js')(passport, models);
 
+// ROUTES
+require('./routes/auth')(app, passport);
+
+// PASSPORT & SEQUELIZE
+require('./config/passport/passport.js')(passport, models);
+// SYNC OPTIONS
 var syncOptions = { force: false };
 if (process.env.NODE_ENV === "test") {
   syncOptions.force = true;
 }
-
+// LAUNCH SERVER
 models.sequelize.sync(syncOptions).then(function () {
   app.listen(PORT, function () {
     console.log("==> 🌎 Port: %s. Visit http://localhost:%s/",
