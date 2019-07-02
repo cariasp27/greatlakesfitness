@@ -5,7 +5,7 @@ const morgan   = require('morgan')
 const session  = require('express-session')
 const models   = require('./models')
 const app      = express()
-const PORT     = 8080
+const PORT     = 8080 || process.env.PORT;
 const cors = require('cors')
 
 // MIDDLEWARE
