@@ -127,4 +127,7 @@ module.exports = function (app, passport) {
             res.send({ msg: '\n no user to log out \n' })
         }
     })
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(__dirname, "../client/build/index.html"));
+    })
 }
