@@ -1,4 +1,7 @@
 const axios = require('axios');
+const db = require('../models')
+var Sequelize = require("sequelize");
+var Op = Sequelize.Op;
 module.exports = function (app, passport) {
 
 
@@ -36,7 +39,8 @@ module.exports = function (app, passport) {
         passport.authenticate('local-trainer-signup'),
         (req, res) => {
             var trainerInfo = {
-                username: req.user.username
+                username: req.user.username,
+                isTrainer: req.user.isTrainer
             };
             console.log("New Trainer created... \n")
             res.send(trainerInfo);
@@ -76,15 +80,39 @@ module.exports = function (app, passport) {
         }
     });
 
+    app.get('/requests/:id', (req, res) => {
+    let userid = req.params.id;
+    let reqs = []
+    db.request.findAll({where: {id: userid}})
+    .then(function (result) {
+        for(i=0; i<result.length; i++){
+            reqs.push(result[i])
+        }
+        console.log("/requests/id = "+reqs)
+        res.send({reqs})
+    })
+    })
 
     ////////////////////////////// ZIPCODE API //////////////////////////////////////////////////////////////////////////////////////////
     // front end sends GET request with user input here
     app.get('/search/:zipcode', (req, res) => {
+        // user input & empty trainer array to send back
         let zip = req.params.zipcode;
+        let trainers = [];
         // make GET request from the back end to avoid CORS (currently radius is set to 10mi but could allow user input)
         axios.get("https://www.zipcodeapi.com/rest/zUWic7V6ReO5UzHQKieekQU1hYlkpKa87kl8LaQk3AcxADnW5e8WuXshGZaOWgbT/radius.json/" + zip + "/10/miles?minimal").then(response => {
-            // log the resulting array of zipcodes 
+            // log the resulting array of zipcodes & assign to variable
             console.log(response.data.zip_codes);
+            const zipcodes = response.data.zip_codes;
+            // find all trainers where zipcode matches one in array
+            db.trainer.findAll({ where: { zipcode: { [Op.in]: zipcodes} } })
+                .then(function (result) {
+                for(i=0; i<result.length; i++){
+                    trainers.push(result[i])
+                }
+                // send the trainer array to the front end
+                res.send({trainers})
+            });
         })
     });
 

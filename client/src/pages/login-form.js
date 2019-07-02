@@ -12,7 +12,7 @@ class LoginForm extends Component {
         }
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleChange = this.handleChange.bind(this)
-  
+
     }
 
     handleChange(event) {
@@ -26,9 +26,9 @@ class LoginForm extends Component {
         console.log('handleSubmit')
 
         axios.post('/login', {
-                username: this.state.username,
-                password: this.state.password
-            })
+            username: this.state.username,
+            password: this.state.password
+        })
             .then(response => {
                 console.log('login response: ')
                 console.log(response)
@@ -47,7 +47,7 @@ class LoginForm extends Component {
                 console.log('login error: ')
                 alert("invalid username/password");
                 console.log(error);
-                
+
             })
     }
 

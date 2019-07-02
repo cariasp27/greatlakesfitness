@@ -4,7 +4,14 @@
 .button {padding-right: 10px}
 .navbar {
   margin-top: auto;
-  margin-bottom: 75px;
+  background-color: #252525;
+  box-shadow: 5px 10px 10px #111111;
+  z-index: 5;
+}
+.jumbotron {
+  background-color: #252525;
+  box-shadow: 5px 10px 10px #111111;
+
 }
 #freepik {
   font-size: 10px;

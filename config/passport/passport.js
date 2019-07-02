@@ -1,39 +1,50 @@
 var bCrypt = require('bcrypt-nodejs');
 module.exports = function (passport, models) {
-
+  // DIFFERENTIATE TWO TYPES OF USERS
   var User = models.user;
   var Trainer = models.trainer;
   var LocalStrategy = require('passport-local').Strategy;
 
-  // used to serialize user
+  ////////////////////////////// SERIALIZE USER ////////////////////////////////////////////////////////////
   passport.serializeUser(function (user, done) {
     done(null, user.id);
   });
 
-  // used to deserialize the user
+  ////////////////////////////// DESERIALIZE USER ////////////////////////////////////////////////////////////
   passport.deserializeUser(function (id, done) {
+    // CHECK USER TABLE FOR USER
     User.findOne({ where: { id: id } }).then(function (user) {
+
+      // IF USER...
       if (user) {
+        // run a get on the user
         done(null, user.get());
       }
+
+      // IF NO USER WAS FOUND
       else if (!user) {
-        Trainer.findOne({ where: { id: id} }).then(function (trainer) {
+        // CHECK TRAINER TABLE FOR USER
+        Trainer.findOne({ where: { id: id } }).then(function (trainer) {
+          // IF TRAINER...
           if (trainer) {
+            // run a get on the trainer
             done(null, trainer.get());
           }
-          else{
+          // IF NOT TRAINER WAS FOUND
+          else {
+            // send back errors
             done(trainer.errors, null);
           }
-        })
+      })
       }
+
       else {
         done(user.errors, null);
       }
-
     });
   });
 
-  // LOCAL SIGNUP
+  ////////////////////////////// LOCAL USER SIGNUP //////////////////////////////////////////////////////////////////////
   passport.use('local-signup', new LocalStrategy(
     {
       usernameField: 'username',
@@ -41,17 +52,18 @@ module.exports = function (passport, models) {
       passReqToCallback: true
     },
     function (req, username, password, done) {
-      // encrypts password
+
+      // ENCRYPTS PASSWORD
       var generateHash = function (password) {
         return bCrypt.hashSync(password, bCrypt.genSaltSync(8), null);
       };
-      // checks database to see if the username is already taken
+      // CHECK DB FOR EXISTING USER
       User.findOne({ where: { username: username } }).then(function (user) {
-        // if username is taken..
+        // IF TAKEN
         if (user) {
           return done(null, false, { message: 'That username is already taken' });
         }
-        // if the username is available, encrypt password and create sequelize object for new user
+        // IF OPEN, ENCRPYT PASSWORD AND SUBMIT OBJECT TO SEQUELIZE
         else {
           var userPassword = generateHash(password);
           var data =
@@ -72,51 +84,50 @@ module.exports = function (passport, models) {
       });
     }
   ));
-    // LOCAL TRAINER SIGNUP
-    passport.use('local-trainer-signup', new LocalStrategy(
-      {
-        usernameField: 'username',
-        passwordField: 'password',
-        passReqToCallback: true
-      },
-      function (req, username, password, done) {
-        console.log(req.body.username +"this is what passport thinks the username is");
-        console.log(req.body.zipcode + "this is what passport thinks the zipcode is");
-        console.log(req.body.isTrainer + "this is what passport thinks the is trainer boolean is");
-        // encrypts password
-        var generateHash = function (password) {
-          return bCrypt.hashSync(password, bCrypt.genSaltSync(8), null);
-        };
-        // checks database to see if the username is already taken
-        Trainer.findOne({ where: { username: username } }).then(function (trainer) {
-          // if username is taken..
-          if (trainer) {
-            return done(null, false, { message: 'That username is already taken' });
-          }
-          // if the username is available, encrypt password and create sequelize object for new user
-          else {
-            var userPassword = generateHash(password);
-            var data =
-            {
-              username: username,
-              password: userPassword,
-              zipcode: req.body.zipcode,
-              isTrainer: true
-            };
-            console.log(data);
-            // create a new user in the database
-            Trainer.create(data).then(function (newTrainer, created) {
-              if (!newTrainer) {
-                return done(null, false);
-              }
-              if (newTrainer) {
-                return done(null, newTrainer);
-              }
-            });
-          }
-        });
-      }
-    ));
+  ////////////////////////////// LOCAL TRAINER SIGNUP ////////////////////////////////////////////////////////////
+  passport.use('local-trainer-signup', new LocalStrategy(
+    {
+      usernameField: 'username',
+      passwordField: 'password',
+      passReqToCallback: true
+    },
+    function (req, username, password, done) {
+      // encrypts password
+      var generateHash = function (password) {
+        return bCrypt.hashSync(password, bCrypt.genSaltSync(8), null);
+      };
+      // checks database to see if the username is already taken
+      Trainer.findOne({ where: { username: username } }).then(function (trainer) {
+        // if username is taken..
+        if (trainer) {
+          return done(null, false, { message: 'That username is already taken' });
+        }
+        // if the username is available, encrypt password and create sequelize object for new user
+        else {
+          var userPassword = generateHash(password);
+          var data =
+          {
+            username: username,
+            firstname: req.body.firstname,
+            lastname: req.body.lastname,
+            password: userPassword,
+            zipcode: req.body.zipcode,
+            isTrainer: true
+          };
+          console.log(data);
+          // create a new user in the database
+          Trainer.create(data).then(function (newTrainer, created) {
+            if (!newTrainer) {
+              return done(null, false);
+            }
+            if (newTrainer) {
+              return done(null, newTrainer);
+            }
+          });
+        }
+      });
+    }
+  ));
   //LOCAL LOGIN
   passport.use('local-login', new LocalStrategy(
     {
@@ -132,8 +143,8 @@ module.exports = function (passport, models) {
       // search database for existing user
       User.findOne({ where: { username: username } }).then(function (user) {
         if (!user) {
-          Trainer.findOne({ where: { username: username}}).then(function (trainer) {
-            if(!trainer) {
+          Trainer.findOne({ where: { username: username } }).then(function (trainer) {
+            if (!trainer) {
               return done(null, false, { message: 'username does not exist' });
             }
             if (!isValidPassword(user.password, password)) {
@@ -141,7 +152,7 @@ module.exports = function (passport, models) {
             }
             var trainerinfo = trainer.get();
             return done(null, trainerinfo);
-          
+
           })
         }
         if (!isValidPassword(user.password, password)) {
@@ -149,7 +160,7 @@ module.exports = function (passport, models) {
         }
         var userinfo = user.get();
         return done(null, userinfo);
-      
+
       }).catch(function (err) {
         console.log("Error:", err);
         return done(null, false, { message: 'Something went wrong with your Login' });

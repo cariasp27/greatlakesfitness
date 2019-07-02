@@ -26,10 +26,10 @@ class App extends Component {
   }
 
   componentDidMount() {
-  this.getUser()
+    this.getUser()
   }
 
-  updateUser (userObject) {
+  updateUser(userObject) {
     this.setState(userObject)
   }
 
@@ -44,7 +44,16 @@ class App extends Component {
           loggedIn: true,
           username: response.data.user.username
         })
-      } else {
+      }
+      // } else if (response.data.user.isTrainer){
+      //   console.log('Get User: There is a user saved in the server session: ')
+      //   this.setState({
+      //     loggedIn: true,
+      //     username: response.data.user.username,
+      //     isTrainer: response.data.user.isTrainer
+      //   })
+      // }
+      else {
         console.log('Get user: no user');
         this.setState({
           loggedIn: false,
@@ -55,47 +64,47 @@ class App extends Component {
   }
 
   render() {
-  return (
-    <Router>
-       <div className="App">
-   
-   <Navbar updateUser={this.updateUser} loggedIn={this.state.loggedIn} isTrainer={this.state.isTrainer} />
-   {/* Routes to different components */}
-   <Switch>
-    <Route 
-    exact path ='/'
-    render={() =>
-    <Welcome /> }/>
-   <Route
-    path="/login"
-     render={() =>
-       <LoginForm
-         updateUser={this.updateUser}
-       />} />
-   
-   <Route
-     path="/home"
-     render={() =>
-       <Home
-         updateUser={this.updateUser}  loggedIn={this.state.loggedIn}
-       />}
-   />
-   <Route
-     path="/signup"
-     render={() =>
-       <Signup updateUser={this.updateUser}  loggedIn={this.state.loggedIn}/>}
-   />
-   <Route
-    path="/search"
-    render={() => 
-    <Search updateUser={this.updateUser}  loggedIn={this.state.loggedIn} />
-    }
-    />
-</Switch>
- </div>
-    </Router>
-  );
-}
+    return (
+      <Router>
+        <div className="App">
+
+          <Navbar updateUser={this.updateUser} loggedIn={this.state.loggedIn} isTrainer={this.state.isTrainer} />
+          {/* Routes to different components */}
+          <Switch>
+            <Route
+              exact path='/'
+              render={() =>
+                <Welcome />} />
+            <Route
+              path="/login"
+              render={() =>
+                <LoginForm
+                  updateUser={this.updateUser}
+                />} />
+
+            <Route
+              path="/home"
+              render={() =>
+                <Home
+                  updateUser={this.updateUser} loggedIn={this.state.loggedIn} isTrainer={this.state.isTrainer}
+                />}
+            />
+            <Route
+              path="/signup"
+              render={() =>
+                <Signup updateUser={this.updateUser} loggedIn={this.state.loggedIn} />}
+            />
+            <Route
+              path="/search"
+              render={() =>
+                <Search updateUser={this.updateUser} loggedIn={this.state.loggedIn} />
+              }
+            />
+          </Switch>
+        </div>
+      </Router>
+    );
+  }
 }
 
 export default App;

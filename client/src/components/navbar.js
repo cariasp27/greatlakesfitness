@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import '../App.css';
 import axios from 'axios'
-import {NavLoggedout, NavLoggedin, NavisTrainer} from "./navbuttons"
+import { NavLoggedout, NavLoggedin, NavisTrainer } from "./navbuttons"
 
 class Navbar extends Component {
     constructor() {
@@ -30,7 +30,7 @@ class Navbar extends Component {
         })
     }
 
-    render() {  
+    render() {
         const loggedIn = this.props.loggedIn;
         const isTrainer = this.props.isTrainer;
         console.log('NavBar has rendered with the following props: ')
@@ -40,27 +40,27 @@ class Navbar extends Component {
         if (loggedIn) {
             navbuttons = < NavLoggedin onClick={Navbar.logout} />
         }
-        else if(isTrainer) {
+        else if (isTrainer) {
             navbuttons = < NavisTrainer onClick={this.logout} />
         }
         else {
             navbuttons = <NavLoggedout />
         }
 
-        return(
-        <div className='row'>
-            {navbuttons}
-        </div>        
+        return (
+            <div className='row'>
+                {navbuttons}
+            </div>
         )
-            // if(!loggedIn){
-            // return    NavLoggedout();
-            // }
-            // else if (loggedIn) {
-            // return    NavLoggedin();
-            // }
-            // else if (isTrainer){
-            // return    NavisTrainer();
-            // }
+        // if(!loggedIn){
+        // return    NavLoggedout();
+        // }
+        // else if (loggedIn) {
+        // return    NavLoggedin();
+        // }
+        // else if (isTrainer){
+        // return    NavisTrainer();
+        // }
     }
 }
 

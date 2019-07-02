@@ -6,6 +6,8 @@ class Signup extends Component {
 	constructor() {
 		super()
 		this.state = {
+			firstname: '',
+			lastname: '',
 			username: '',
 			password: '',
 			zipcode: '',
@@ -19,7 +21,6 @@ class Signup extends Component {
 		this.handleTrainerSignup = this.handleTrainerSignup.bind(this)
 	}
 	handleChange(event) {
-		console.log(event.target.value)
 		this.setState({
 			[event.target.name]: event.target.value
 		})
@@ -35,11 +36,12 @@ class Signup extends Component {
 	handleTrainerSubmit(event) {
 		event.preventDefault();
 		console.log('sign-up handleSubmit, username: ')
-		console.log(this.state.username)
 
 		//request to server to add a new username/password
 		axios.post('/trainersignup', {
 			username: this.state.username,
+			firstname: this.state.firstname,
+			lastname: this.state.lastname,
 			password: this.state.password,
 			zipcode: this.state.zipcode,
 			isTrainer: true
@@ -52,7 +54,8 @@ class Signup extends Component {
 					// update App.js state
 					this.props.updateUser({
 						loggedIn: true,
-						username: response.data.username
+						username: response.data.username,
+						isTrainer: response.data.isTrainer
 					})
 					// update the state to redirect to home
 					this.setState({
@@ -113,7 +116,7 @@ class Signup extends Component {
 						{isTrainer ? (<form className="form-horizontal">
 							<div className="form-group">
 								<div className="col-1 col-ml-auto">
-									<label className="form-label" htmlFor="username">Username</label>
+									<label className="form-label" htmlFor="username">Username:</label>
 								</div>
 								<div className="col-3 col-mr-auto">
 									<input className="form-input"
@@ -128,11 +131,41 @@ class Signup extends Component {
 							</div>
 							<div className="form-group">
 								<div className="col-1 col-ml-auto">
+									<label className="form-label" htmlFor="firstname">First Name:</label>
+								</div>
+								<div className="col-3 col-mr-auto">
+									<input className="form-input"
+										type="text"
+										id="firstname"
+										name="firstname"
+										placeholder="First Name"
+										value={this.state.firstname}
+										onChange={this.handleChange}
+									/>
+								</div>
+							</div>
+							<div className="form-group">
+								<div className="col-1 col-ml-auto">
+									<label className="form-label" htmlFor="lastname">Last Name:</label>
+								</div>
+								<div className="col-3 col-mr-auto">
+									<input className="form-input"
+										type="text"
+										id="lastname"
+										name="lastname"
+										placeholder="Last Name"
+										value={this.state.lastname}
+										onChange={this.handleChange}
+									/>
+								</div>
+							</div>
+							<div className="form-group">
+								<div className="col-1 col-ml-auto">
 									<label className="form-label" htmlFor="password">Password: </label>
 								</div>
 								<div className="col-3 col-mr-auto">
 									<input className="form-input"
-										placeholder="password"
+										placeholder="Password"
 										type="password"
 										name="password"
 										value={this.state.password}
@@ -165,7 +198,7 @@ class Signup extends Component {
 							</div>
 
 						</form>
-						// render below is not trainer
+							// render below is not trainer
 						) : (<form className="form-horizontal">
 							<div className="form-group">
 								<div className="col-1 col-ml-auto">
