@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "babel": "^6.23.0",
     "bcrypt-nodejs": "0.0.3",
     "cors": "^2.8.5",
     "express": "^4.16.3",
