@@ -1,4 +1,5 @@
 const axios = require('axios');
+const path = require("path");
 const db = require('../models')
 var Sequelize = require("sequelize");
 var Op = Sequelize.Op;
@@ -125,5 +126,8 @@ module.exports = function (app, passport) {
         } else {
             res.send({ msg: '\n no user to log out \n' })
         }
+    })
+    app.get('/', (req, res) => {
+        res.sendFile(path.join(__dirname, "../client/build/index.html"));
     })
 }
