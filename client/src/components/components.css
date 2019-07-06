@@ -1,0 +1,25 @@
+#nav-container {
+    align-items: flex-end;
+}
+.jumbo {
+    background: url("../img/green_cup.png");
+    height: 200px;
+    padding-top: 75px;
+    box-shadow: 5px 10px 10px #111111;
+}
+.navbar {
+    margin-top: auto;
+    background-color: #252525;
+    box-shadow: 5px 10px 10px #111111;
+    z-index: 5;
+}
+#trainerSU {
+    position: relative;
+    left: -210px;
+    bottom: -10px;
+}
+#logo {
+    height: 150%;
+    position: relative;
+    top: -90px;
+}

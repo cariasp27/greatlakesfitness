@@ -1,0 +1,67 @@
+.SignupForm {
+    margin: auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    padding-top: 25px;
+    background: url("../img/green_cup.png");
+    height: auto;
+    min-height: 350px;
+    width: 350px;
+    box-shadow: 5px 10px 10px #111111;
+    padding-bottom: 10px;
+    border-radius: 25px;
+}
+#loginholder {
+    margin: auto;
+    margin-top: 50px;
+    padding-top: 25px;
+    background: url("../img/green_cup.png");
+    height: 350px;
+    width: 350px;
+    box-shadow: 5px 10px 10px #111111;
+    border-radius: 25px;
+}
+input {
+    margin: 10px;
+    display: flex;
+    justify-content: right;
+}
+#welcome {
+    background: url("../img/green_cup.png");
+    height: 200px;
+    padding-top: 75px;
+    box-shadow: 5px 10px 10px #111111;
+}
+#info {
+    background: url("../img/green_cup.png");
+    margin-top: 75px;
+    margin-bottom: 75px;
+    height: 500px;
+    box-shadow: 5px 10px 10px #111111;
+}
+#logo {
+    height: 150%;
+    position: relative;
+    top: -90px;
+}
+#pending {
+    margin-top: 50px;
+    background: url("../img/green_cup.png");
+    margin-left: 10px;
+}
+#upcoming {
+    margin-right: 10px;
+    margin-top: 50px;
+    background: url("../img/green_cup.png");
+}
+#about {
+    background: url("../img/green_cup.png");
+    margin-top: 75px;
+    margin-bottom: 75px;
+    height: 500px;
+    box-shadow: 5px 10px 10px #111111;
+}
+.btn {
+    margin-right: 10px;
+    margin-left: 10px;
+}

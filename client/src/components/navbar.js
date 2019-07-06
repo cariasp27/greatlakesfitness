@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import '../App.css';
+import '../components/components.css'
 import axios from 'axios'
 import { NavLoggedout, NavLoggedin, NavisTrainer } from "./navbuttons"
 
@@ -38,7 +38,7 @@ class Navbar extends Component {
         let navbuttons;
 
         if (loggedIn) {
-            navbuttons = < NavLoggedin onClick={Navbar.logout} />
+            navbuttons = < NavLoggedin onClick={this.logout} />
         }
         else if (isTrainer) {
             navbuttons = < NavisTrainer onClick={this.logout} />

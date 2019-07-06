@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import { Redirect } from 'react-router-dom'
+import "../pages/pages.css"
+import Jumbotron from '../components/jumbotron';
 
 class Signup extends Component {
 	constructor() {
@@ -109,16 +111,15 @@ class Signup extends Component {
 			return <Redirect to={{ pathname: this.state.redirectTo }} />
 		} else {
 			return (
+				<div className='row'>
+				<Jumbotron></Jumbotron>
 				<div className="SignupForm">
 					<h4>Sign up</h4>
 					<center>
 						{/* render this if trainer */}
 						{isTrainer ? (<form className="form-horizontal">
 							<div className="form-group">
-								<div className="col-1 col-ml-auto">
 									<label className="form-label" htmlFor="username">Username:</label>
-								</div>
-								<div className="col-3 col-mr-auto">
 									<input className="form-input"
 										type="text"
 										id="username"
@@ -127,13 +128,7 @@ class Signup extends Component {
 										value={this.state.username}
 										onChange={this.handleChange}
 									/>
-								</div>
-							</div>
-							<div className="form-group">
-								<div className="col-1 col-ml-auto">
 									<label className="form-label" htmlFor="firstname">First Name:</label>
-								</div>
-								<div className="col-3 col-mr-auto">
 									<input className="form-input"
 										type="text"
 										id="firstname"
@@ -142,13 +137,7 @@ class Signup extends Component {
 										value={this.state.firstname}
 										onChange={this.handleChange}
 									/>
-								</div>
-							</div>
-							<div className="form-group">
-								<div className="col-1 col-ml-auto">
 									<label className="form-label" htmlFor="lastname">Last Name:</label>
-								</div>
-								<div className="col-3 col-mr-auto">
 									<input className="form-input"
 										type="text"
 										id="lastname"
@@ -157,13 +146,8 @@ class Signup extends Component {
 										value={this.state.lastname}
 										onChange={this.handleChange}
 									/>
-								</div>
-							</div>
-							<div className="form-group">
-								<div className="col-1 col-ml-auto">
 									<label className="form-label" htmlFor="password">Password: </label>
-								</div>
-								<div className="col-3 col-mr-auto">
+
 									<input className="form-input"
 										placeholder="Password"
 										type="password"
@@ -171,13 +155,7 @@ class Signup extends Component {
 										value={this.state.password}
 										onChange={this.handleChange}
 									/>
-								</div>
-							</div>
-							<div className="form-group">
-								<div className="col-1 col-ml-auto">
 									<label className="form-label" htmlFor="zipcode">Zipcode: </label>
-								</div>
-								<div className="col-3 col-mr-auto">
 									<input className="form-input"
 										placeholder="zipcode"
 										type="text"
@@ -185,11 +163,6 @@ class Signup extends Component {
 										value={this.state.zipcode}
 										onChange={this.handleChange}
 									/>
-								</div>
-							</div>
-
-							<div className="form-group ">
-								<div className="col-7"></div>
 								<button
 									className="btn btn-primary"
 									onClick={this.handleTrainerSubmit}
@@ -201,10 +174,7 @@ class Signup extends Component {
 							// render below is not trainer
 						) : (<form className="form-horizontal">
 							<div className="form-group">
-								<div className="col-1 col-ml-auto">
 									<label className="form-label" htmlFor="username">Username</label>
-								</div>
-								<div className="col-3 col-mr-auto">
 									<input className="form-input"
 										type="text"
 										id="username"
@@ -213,13 +183,7 @@ class Signup extends Component {
 										value={this.state.username}
 										onChange={this.handleChange}
 									/>
-								</div>
-							</div>
-							<div className="form-group">
-								<div className="col-1 col-ml-auto">
 									<label className="form-label" htmlFor="password">Password: </label>
-								</div>
-								<div className="col-3 col-mr-auto">
 									<input className="form-input"
 										placeholder="password"
 										type="password"
@@ -227,23 +191,24 @@ class Signup extends Component {
 										value={this.state.password}
 										onChange={this.handleChange}
 									/>
-								</div>
-							</div>
 							<div className="form-group ">
-								<div className="col-7"></div>
 								<button
+									id="trainerbtn"
 									className="btn btn-primary"
 									onClick={this.handleTrainerSignup}
 								>Trainer?</button>
 								<button
+									id='userbtn'
 									className="btn btn-primary"
 									onClick={this.handleSubmit}
 									type="submit"
 								>Sign up</button>
 							</div>
+							</div>
 
 						</form>
 							)}</center>
+				</div>
 				</div>
 
 			)

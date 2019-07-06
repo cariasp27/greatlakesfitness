@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import React from 'react'
+import '../components/components.css'
 function NavLoggedin(props) {
     return (
 
@@ -29,6 +30,9 @@ function NavLoggedout() {
             <Link to="/login" className="btn btn-link">
                 <span className="text-secondary">Login</span>
             </Link>
+            <Link to="/" className="btn btn-link">
+                <span className="text-secondary">Home</span>
+            </Link>
         </section>
         </div>
     );
@@ -43,6 +47,9 @@ function NavisTrainer(props) {
                 <Link to="/search" className="btn btn-link">
                     <span className="text-secondary">Find A Trainer</span>
                 </Link>
+                <Link to="/" className="btn btn-link">
+                <span className="text-secondary">Home</span>
+            </Link>
 
             </section>
 

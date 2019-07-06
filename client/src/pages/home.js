@@ -3,7 +3,7 @@ import Jumbotron from "../components/jumbotron"
 import { Redirect } from 'react-router-dom'
 import { List, ListItem} from "../components/list"
 import axios from 'axios';
-import "./style.css"
+import "../pages/pages.css"
 import API from "../utils/API";
 
 class Home extends Component {
@@ -76,11 +76,12 @@ class Home extends Component {
           {loggedIn ? (
             <div className='row'>
               <Jumbotron></Jumbotron>
-              <div className='col-md-6' id='upcoming'>
+              <div className='col-sm-1'></div>
+              <div className='col-md-5' id='upcoming'>
                 <h2>Upcoming</h2>
                 map workouts where accepted = true
             </div>
-              <div className='col-md-6' id="pending">
+              <div className='col-md-5' id="pending">
               {this.state.workouts.length ? (
                 <List>
                   {this.state.workouts.map(workout => {
@@ -95,7 +96,9 @@ class Home extends Component {
                 <h3>No Results to Display</h3>
               )}
             </div>
-            </div>) : (<Redirect to={{ pathname: '/' }} />)}
+            <div className='col-sm-1'></div>
+            </div>
+            ) : (<Redirect to={{ pathname: '/' }} />)}
 
         </div>
       );

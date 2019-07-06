@@ -4,7 +4,7 @@ import Jumbotron from "../components/jumbotron"
 import { List, ListItem } from "../components/list"
 import API from "../utils/API"
 import axios from 'axios';
-import "./style.css"
+import "../pages/pages.css"
 
 class Search extends Component {
   constructor() {
