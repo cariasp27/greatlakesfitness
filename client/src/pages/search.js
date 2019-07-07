@@ -78,8 +78,10 @@ class Search extends Component {
         <div>
           <Jumbotron></Jumbotron>
           <div className='row'>
-            <div className='col-md-6'>
-              <div className='col-md-12'>
+              <div className="col-sm-1"></div>
+              <div className='col-md-10 holder' id="search">
+              <center><form className='form-horizontal'>
+                <div className='form-group'>
                 <input className='form-input'
                   type='text'
                   name='zipcode'
@@ -87,12 +89,15 @@ class Search extends Component {
                   value={this.state.zipcode}
                   onChange={this.handleChange}
                 />
-              </div>
+                </div>
+              <div className='form-group'>
               <button onClick={this.handleSubmit}>
                 Search
                     </button>
-            </div>
-            <div className='col-md-6'>
+                    </div>
+                    </form></center>
+
+
             {this.state.trainers.length ? (
                 <List>
                   {this.state.trainers.map(trainer => {
@@ -108,6 +113,7 @@ class Search extends Component {
                 <h3>No Results to Display</h3>
               )}
             </div>
+            <div className="col-sm-1"></div>
           </div>
         </div>
       );

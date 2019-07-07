@@ -21,6 +21,12 @@
     box-shadow: 5px 10px 10px #111111;
     border-radius: 25px;
 }
+.holder{
+    background: url("../img/green_cup.png");
+}
+#search{
+    margin-top: 50px;
+}
 input {
     margin: 10px;
     display: flex;

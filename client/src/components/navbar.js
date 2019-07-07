@@ -36,13 +36,15 @@ class Navbar extends Component {
         console.log('NavBar has rendered with the following props: ')
         console.log(this.props);
         let navbuttons;
-
+// render this if logged in
         if (loggedIn) {
             navbuttons = < NavLoggedin onClick={this.logout} />
         }
+// render this if logged in as trainer
         else if (isTrainer) {
             navbuttons = < NavisTrainer onClick={this.logout} />
         }
+// render this if not logged in
         else {
             navbuttons = <NavLoggedout />
         }
@@ -52,15 +54,6 @@ class Navbar extends Component {
                 {navbuttons}
             </div>
         )
-        // if(!loggedIn){
-        // return    NavLoggedout();
-        // }
-        // else if (loggedIn) {
-        // return    NavLoggedin();
-        // }
-        // else if (isTrainer){
-        // return    NavisTrainer();
-        // }
     }
 }
 

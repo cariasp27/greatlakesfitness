@@ -6,7 +6,7 @@ function NavLoggedin(props) {
 
         <div className='col-lg-12 navbar'>
             <section className="navbar-section">
-                <Link to="#" className="btn btn-link text-secondary" onClick={props.logout}>
+                <Link to="#" className="btn btn-link text-secondary" onClick={props.onClick}>
                     <span className="text-secondary">Logout</span></Link>
                 <Link to="/home" className="btn btn-link">
                     <span className="text-secondary">Home</span>
@@ -42,7 +42,7 @@ function NavisTrainer(props) {
     return (
         <div className='col-lg-12 navbar'>
             <section className="navbar-section">
-                <Link to="#" className="btn btn-link text-secondary" onClick={props.logout}>
+                <Link to="#" className="btn btn-link text-secondary" onClick={props.onClick}>
                     <span className="text-secondary">Logout</span></Link>
                 <Link to="/search" className="btn btn-link">
                     <span className="text-secondary">Find A Trainer</span>

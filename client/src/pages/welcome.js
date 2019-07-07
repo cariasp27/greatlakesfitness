@@ -12,7 +12,13 @@ class Welcome extends Component {
             <div className='col-sm-1'></div>
             <div className='col-md-5' id='info'></div>
             <div className='col-md-1'></div>
-            <div className='col-md-4' id='about'></div>
+            <div className='col-md-4' id='about'>
+                <div className='col-md-12'>
+                    <center><h1>About</h1></center>
+                    <p>Great Lakes Fitness is a website that connects people who want to improve their personal fitness by locating personal trainers in their area.
+                    </p>
+                </div>
+            </div>
             <div className='col-md-1'></div>
             </div>
         )

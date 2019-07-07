@@ -20,21 +20,25 @@ class Home extends Component {
     this.getUser = this.getUser.bind(this)
     this.componentDidMount = this.componentDidMount.bind(this)
     this.updateUser = this.updateUser.bind(this)
+    this.getWorkouts= this.getWorkouts.bind(this)
   }
 
   componentDidMount() {
     this.getUser()
-    // API.getworkouts(this.state.id).then(res => {
-    //   console.log(res)
-    //   this.setState({
-    //     workouts: res.data.requests
-    //   })  
-    // })
+
 
   }
 
   updateUser(userObject) {
     this.setState(userObject)
+  }
+  getWorkouts(id) {
+    API.getworkouts(id).then(res => {
+      console.log(res)
+      this.setState({
+        workouts: res.data.reqs
+      })  
+    })
   }
   getUser() {
     axios.get('/user').then(response => {
@@ -50,6 +54,9 @@ class Home extends Component {
           username: usernam,
           id: idd
         })
+
+        this.getWorkouts(idd);
+      
       
       } else {
         console.log('NO USER');
