@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Redirect } from 'react-router-dom'
+import { Redirect, Link } from 'react-router-dom'
 import Jumbotron from "../components/jumbotron"
 import { List, ListItem } from "../components/list"
 import API from "../utils/API"
@@ -48,6 +48,12 @@ class Search extends Component {
     this.setState(userObject)
   }
 
+  goToTrainer(event) {
+    event.preventDefault();
+    debugger;
+    console.log("heyyyyyy")
+    console.log(this.key)
+  }
   getUser() {
     axios.get('/user').then(response => {
       console.log('Get user response: ')
@@ -102,9 +108,14 @@ class Search extends Component {
                 <List>
                   {this.state.trainers.map(trainer => {
                     return (
-                      <ListItem key={trainer.id}>
-                        <h1>{trainer.firstname + " " + trainer.lastname}</h1>
-                        <p>{trainer.zipcode}</p>
+                      <ListItem key={trainer.username} onClick={this.goToTrainer} >
+                        <div className="card-body">
+                        <h1 className="card-title">{trainer.firstname + " " + trainer.lastname}</h1>
+                        <p className="card-text">{trainer.zipcode}</p>
+                        <Link to={"/profile/"+ trainer.username} className='btn btn-danger'>
+                          <span>View Trainer</span>
+                        </Link>
+                        </div>
                       </ListItem>
                     );
                   })}

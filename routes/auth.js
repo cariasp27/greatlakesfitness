@@ -113,6 +113,9 @@ module.exports = function (app, passport) {
                 }
                 // send the trainer array to the front end
                 res.send({trainers})
+                if (err) {
+                    throw err;
+                }
             });
         })
     });

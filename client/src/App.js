@@ -9,6 +9,7 @@ import Navbar from './components/navbar';
 import Home from './pages/home'
 import Welcome from './pages/welcome'
 import Search from './pages/search'
+import Profile from './pages/profile';
 
 class App extends Component {
   constructor() {
@@ -100,6 +101,13 @@ class App extends Component {
                 <Search updateUser={this.updateUser} loggedIn={this.state.loggedIn} />
               }
             />
+            <Route 
+              path="/profile/:tusername"
+              render={(props) =>
+                <Profile updateUser={this.updateUser} loggedIn={this.state.loggedIn} isTrainer={this.state.isTrainer} tusername={this.props}
+                />
+              }
+              />
           </Switch>
         </div>
       </Router>

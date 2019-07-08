@@ -5,12 +5,12 @@ import '../components/components.css'
 
 export function List({ children }) {
   return (
-    <div className="list-overflow-container col-lg-10">
-      <ul className="list-group">{children}</ul>
+    <div className="list-overflow-container col-lg-12" id="trainerholder">
+{children}
     </div>
   );
 }
 
-export function ListItem({ children }) {
-  return <li className="list-group-item">{children}</li>;
+export function ListItem({ children }, props) {
+  return <div className="card" onClick={props.onClick}>{children}</div>;
 }

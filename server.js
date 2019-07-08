@@ -36,7 +36,7 @@ require('./routes/auth')(app, passport);
 // PASSPORT & SEQUELIZE
 require('./config/passport/passport.js')(passport, models);
 // SYNC OPTIONS
-var syncOptions = { force: false };
+var syncOptions = { force: true };
 if (process.env.NODE_ENV === "test") {
   syncOptions.force = true;
 }

@@ -12,6 +12,7 @@ class Signup extends Component {
 			lastname: '',
 			username: '',
 			password: '',
+			profilepic: '',
 			zipcode: '',
 			redirectTo: null,
 			isTrainer: false
@@ -153,6 +154,14 @@ class Signup extends Component {
 										type="password"
 										name="password"
 										value={this.state.password}
+										onChange={this.handleChange}
+									/>
+									<label className="form-label" htmlFor="profilepic">Link to Photo: </label>
+									<input className="form-input"
+										placeholder="photo link"
+										type="text"
+										name="profilepic"
+										value={this.state.profilepic}
 										onChange={this.handleChange}
 									/>
 									<label className="form-label" htmlFor="zipcode">Zipcode: </label>

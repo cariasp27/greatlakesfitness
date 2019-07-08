@@ -111,6 +111,7 @@ module.exports = function (passport, models) {
             firstname: req.body.firstname,
             lastname: req.body.lastname,
             password: userPassword,
+            profilepic: req.body.profilepic,
             zipcode: req.body.zipcode,
             isTrainer: true
           };
@@ -147,7 +148,7 @@ module.exports = function (passport, models) {
             if (!trainer) {
               return done(null, false, { message: 'username does not exist' });
             }
-            if (!isValidPassword(user.password, password)) {
+            if (!isValidPassword(trainer.password, password)) {
               return done(null, false, { message: 'Incorrect password.' });
             }
             var trainerinfo = trainer.get();

@@ -6,6 +6,7 @@ module.exports = function (sequelize, Sequelize) {
 		lastname: { type: Sequelize.TEXT },
 		password: { type: Sequelize.STRING, allowNull: false },
 		zipcode: { type: Sequelize.BIGINT(11) },
+		profilepic: { type: Sequelize.STRING},
 		isTrainer: { type: Sequelize.BOOLEAN }
 	});
 

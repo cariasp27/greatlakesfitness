@@ -30,9 +30,6 @@ function NavLoggedout() {
             <Link to="/login" className="btn btn-link">
                 <span className="text-secondary">Login</span>
             </Link>
-            <Link to="/" className="btn btn-link">
-                <span className="text-secondary">Home</span>
-            </Link>
         </section>
         </div>
     );
@@ -44,8 +41,8 @@ function NavisTrainer(props) {
             <section className="navbar-section">
                 <Link to="#" className="btn btn-link text-secondary" onClick={props.onClick}>
                     <span className="text-secondary">Logout</span></Link>
-                <Link to="/search" className="btn btn-link">
-                    <span className="text-secondary">Find A Trainer</span>
+                <Link to="/profile" className="btn btn-link">
+                    <span className="text-secondary">My Profile</span>
                 </Link>
                 <Link to="/" className="btn btn-link">
                 <span className="text-secondary">Home</span>
