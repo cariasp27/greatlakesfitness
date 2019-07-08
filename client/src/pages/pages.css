@@ -21,11 +21,20 @@
     box-shadow: 5px 10px 10px #111111;
     border-radius: 25px;
 }
+#bioholder {
+    text-align: left;
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-top: 50px;
+}
 .holder{
     background: url("../img/dust_scratches.png");
 }
 #search{
     margin-top: 50px;
+    padding-left: 50px;
+    padding-right: 50px;
+    box-shadow: 5px 10px 10px #111111;
 }
 input {
     margin: 10px;
@@ -48,7 +57,7 @@ input {
 #profilepic {
     width: 400px;
     float: left;
-    margin: 10px;
+    margin: 25px;
 }
 #logo {
     height: 150%;

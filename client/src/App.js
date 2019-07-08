@@ -67,7 +67,7 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <div className="App">
+        <div className="App container">
 
           <Navbar updateUser={this.updateUser} loggedIn={this.state.loggedIn} isTrainer={this.state.isTrainer} />
           {/* Routes to different components */}
@@ -106,13 +106,6 @@ class App extends Component {
               path="/myprofile"
               render={() =>
                 <Profile updateUser={this.updateUser} loggedIn={this.state.loggedIn} isTrainer={this.state.isTrainer}
-                />
-              }
-              />
-            <Route 
-              path="/profile/:tusername"
-              render={(props) =>
-                <Profile updateUser={this.updateUser} loggedIn={this.state.loggedIn} isTrainer={this.state.isTrainer} tusername={this.props}
                 />
               }
               />

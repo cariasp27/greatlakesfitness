@@ -4,13 +4,14 @@ import { Redirect } from 'react-router-dom'
 import Jumbotron from "../components/jumbotron"
 import axios from "axios"
 
+ 
 class Profile extends Component {
     constructor() {
         super()
         this.state = {
           loggedIn: false,
           username: '',
-          tusername: '',
+          bio: '',
           redirectTo: null,
           trainer: {}
         }
@@ -18,6 +19,7 @@ class Profile extends Component {
         this.getUser = this.getUser.bind(this)
         this.componentDidMount = this.componentDidMount.bind(this)
         this.updateUser = this.updateUser.bind(this)
+        this.handleChange = this.handleChange.bind(this)
       }
       componentDidMount() {
         this.getUser()
@@ -25,7 +27,15 @@ class Profile extends Component {
         console.log(trainer)
         console.log(this.state.trainer)
       }
-    
+      handleChange(event) {
+        this.setState({
+          [event.target.name]: event.target.value
+        })
+      }
+      addbio(event) {
+        event.preventDefault();
+        
+      }
       updateUser(userObject) {
         this.setState(userObject)
       }
@@ -54,7 +64,7 @@ class Profile extends Component {
       }
     
     render() {
-        const trainer = this.state.trainer
+        const trainer = this.state.trainer;
         const isTrainer = this.props.isTrainer;
     if (this.state.redirectTo) {
       return <Redirect to={{ pathname: this.state.redirectTo }} />
@@ -65,8 +75,16 @@ class Profile extends Component {
                 <Jumbotron></Jumbotron>
                 {/* right here is where I would put input fields to add bio, upload photo to firebase, and update zipcodes */}
                 { isTrainer ? (
-                <div className="col-md 12 holder">
+                <div className="col-md 12 holder" id="bioholder">
                   <img src={trainer.profilepic} alt="Profile Pic" id="profilepic"></img>
+                  <h1>{trainer.firstname + " " + trainer.lastname}</h1>
+                  <h3>{trainer.zipcode}</h3>
+                  <form className="form-horizontal" id>
+                    <div className="form-group">
+                    <textarea rows="4" cols="50" value={this.state.bio} onChange={this.handleChange}></textarea>
+                    <button className="btn-primary" type="submit" onClick={this.addbio}></button>
+                    </div>
+                  </form>
                 </div>
                   ):(
                   <div><p>render whatever trainer is in the url</p></div>)}

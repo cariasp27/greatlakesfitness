@@ -47,7 +47,7 @@ function NavisTrainer(props) {
                 <Link to="/myprofile" className="btn btn-link">
                     <span className="text-secondary">My Profile</span>
                 </Link>
-                <Link to="/" className="btn btn-link">
+                <Link to="/home" className="btn btn-link">
                 <span className="text-secondary">Home</span>
             </Link>
 

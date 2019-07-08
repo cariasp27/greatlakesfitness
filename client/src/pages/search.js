@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Redirect, Link } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import Jumbotron from "../components/jumbotron"
 import { List, ListItem } from "../components/list"
 import API from "../utils/API"
@@ -14,7 +14,9 @@ class Search extends Component {
       username: null,
       trainers: [],
       zipcode: '',
-      redirectTo: null
+      redirectTo: null,
+      trainertodisplay: null,
+      displaytrainer: false
     }
 
     this.getUser = this.getUser.bind(this)
@@ -22,6 +24,7 @@ class Search extends Component {
     this.updateUser = this.updateUser.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.trainerbiorequest = this.trainerbiorequest.bind(this)
   }
 
   handleSubmit(event) {
@@ -47,7 +50,15 @@ class Search extends Component {
   updateUser(userObject) {
     this.setState(userObject)
   }
+  trainerbiorequest (trainer) {
 
+    console.log(trainer)
+    this.setState({
+      trainertodisplay: trainer,
+      trainers: [],
+      displaytrainer: true
+    })
+  }
   getUser() {
     axios.get('/user').then(response => {
       console.log('Get user response: ')
@@ -71,16 +82,16 @@ class Search extends Component {
   }
 
   render() {
+    const trainerbio = this.state.displaytrainer;
+    const trainer = this.state.trainertodisplay
     if (this.state.redirectTo) {
       return <Redirect to={{ pathname: this.state.redirectTo }} />
     } else {
       return (
-        <div>
+        <div className="row">
           <Jumbotron></Jumbotron>
-          <div className='row'>
-              <div className="col-sm-1"></div>
-              <div className='col-md-10 holder' id="search">
-              <center><form className='form-horizontal'>
+              <div className='col-lg-12 holder' id="search">
+              <center><form>
                 <div className='form-group'>
                 <input className='form-input'
                   type='text'
@@ -96,7 +107,13 @@ class Search extends Component {
                     </button>
                     </div>
                     </form></center>
-
+            {trainerbio ? ( 
+              <div className="col-lg-12">
+              <img src={trainer.profilepic} alt="Profile Pic" id="profilepic"></img>
+                  <h1>{trainer.firstname + " " + trainer.lastname}</h1>
+                  <h3>{trainer.zipcode}</h3>
+                  </div>
+                  ): (<h1></h1>)}
 
             {this.state.trainers.length ? (
                 <List>
@@ -107,9 +124,7 @@ class Search extends Component {
                         <div className="card-body">
                         <h1 className="card-title">{trainer.firstname + " " + trainer.lastname}</h1>
                         <p className="card-text">{trainer.zipcode}</p>
-                        <Link to={"/profile/"+ trainer.username} className='btn btn-danger'>
-                          <span>View Trainer</span>
-                        </Link>
+                        <button className='btn-primary' onClick={() => this.trainerbiorequest(trainer)}>View Info</button>
                         </div>
                       </ListItem>
                     );
@@ -118,8 +133,7 @@ class Search extends Component {
               ) : (
                 <h3>No Results to Display</h3>
               )}
-            </div>
-            <div className="col-sm-1"></div>
+
           </div>
         </div>
       );
