@@ -48,12 +48,6 @@ class Search extends Component {
     this.setState(userObject)
   }
 
-  goToTrainer(event) {
-    event.preventDefault();
-    debugger;
-    console.log("heyyyyyy")
-    console.log(this.key)
-  }
   getUser() {
     axios.get('/user').then(response => {
       console.log('Get user response: ')
@@ -108,7 +102,8 @@ class Search extends Component {
                 <List>
                   {this.state.trainers.map(trainer => {
                     return (
-                      <ListItem key={trainer.username} onClick={this.goToTrainer} >
+                      <ListItem key={trainer.username}>
+                        <img className="card-img-top" src={trainer.profilepic} alt="Profile Pic"></img>
                         <div className="card-body">
                         <h1 className="card-title">{trainer.firstname + " " + trainer.lastname}</h1>
                         <p className="card-text">{trainer.zipcode}</p>

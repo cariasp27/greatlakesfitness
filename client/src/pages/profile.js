@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "../pages/pages.css"
+import { Redirect } from 'react-router-dom'
 import Jumbotron from "../components/jumbotron"
 import axios from "axios"
 
@@ -8,8 +9,10 @@ class Profile extends Component {
         super()
         this.state = {
           loggedIn: false,
+          username: '',
           tusername: '',
-          redirectTo: null
+          redirectTo: null,
+          trainer: {}
         }
     
         this.getUser = this.getUser.bind(this)
@@ -20,6 +23,7 @@ class Profile extends Component {
         this.getUser()
         const trainer = this.props;
         console.log(trainer)
+        console.log(this.state.trainer)
       }
     
       updateUser(userObject) {
@@ -33,14 +37,16 @@ class Profile extends Component {
             console.log('There is a user saved in the server session: ')
             this.setState({
               loggedIn: true,
-              username: response.data.user.username
+              username: response.data.user.username,
+              trainer: response.data.user
             })
+            console.log(this.state.trainer)
           } else {
             console.log('NO USER');
             this.setState({
               loggedIn: false,
               username: null,
-              redirectTo: '/'
+              redirectTo: '/',
             })
     
           }
@@ -48,20 +54,25 @@ class Profile extends Component {
       }
     
     render() {
-        // const blah = this.props.location.search;
-        // console.log(blah);
+        const trainer = this.state.trainer
         const isTrainer = this.props.isTrainer;
-
-        return(
+    if (this.state.redirectTo) {
+      return <Redirect to={{ pathname: this.state.redirectTo }} />
+    } else {
+      return (
  
             <div className="row">
                 <Jumbotron></Jumbotron>
                 {/* right here is where I would put input fields to add bio, upload photo to firebase, and update zipcodes */}
-                { isTrainer ? (<div>
-                <p>render the trainers data as input fields able to accept new values to be changed</p>
-            </div>):(<div><p>render whatever trainer is in the url</p></div>)}
+                { isTrainer ? (
+                <div className="col-md 12 holder">
+                  <img src={trainer.profilepic} alt="Profile Pic" id="profilepic"></img>
+                </div>
+                  ):(
+                  <div><p>render whatever trainer is in the url</p></div>)}
             </div>
         )
     }
+  }
 }
 export default Profile;

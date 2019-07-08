@@ -13,7 +13,9 @@ class LoginForm extends Component {
             redirectTo: null
         }
         this.handleSubmit = this.handleSubmit.bind(this)
+        this.handleTrainerSubmit = this.handleTrainerSubmit.bind(this)
         this.handleChange = this.handleChange.bind(this)
+        this.changetoTrainer = this.changetoTrainer.bind(this)
 
     }
 
@@ -22,6 +24,13 @@ class LoginForm extends Component {
             [event.target.name]: event.target.value
         })
     }
+    changetoTrainer(event) {
+        event.preventDefault();
+        this.setState({
+            isTrainer: true
+        })
+    }
+
 
     handleSubmit(event) {
         event.preventDefault()
@@ -53,7 +62,40 @@ class LoginForm extends Component {
             })
     }
 
+    handleTrainerSubmit(event) {
+        event.preventDefault()
+        console.log('handleSubmit')
+
+        axios.post('/login/trainer', {
+            username: this.state.username,
+            password: this.state.password
+        })
+            .then(response => {
+                console.log('login response: ')
+                console.log(response)
+                if (response.status === 200) {
+                    // update App.js state
+                    this.props.updateUser({
+                        loggedIn: true,
+                        username: response.data.username,
+                        isTrainer: true
+                    })
+                    // update the state to redirect to home
+                    this.setState({
+                        redirectTo: '/home'
+                    })
+                }
+            }).catch(error => {
+                console.log('login error: ')
+                alert("invalid username/password");
+                console.log(error);
+
+            })
+    }
+
+
     render() {
+        const isTrainer = this.state.isTrainer;
         if (this.state.redirectTo) {
             return <Redirect to={{ pathname: this.state.redirectTo }} />
         } else {
@@ -82,12 +124,26 @@ class LoginForm extends Component {
                                 onChange={this.handleChange}
                             />
                         </div>
-                        <div className="form-group">
+                        {isTrainer ? (
+                            <div className="form-group">
+                            <button
+                                className="btn btn-primary"
+                                onClick={this.handleTrainerSubmit}
+                                type="submit">Login</button>
+                        </div>
+                        ) : (
+                            <div className="form-group">
                             <button
                                 className="btn btn-primary"
                                 onClick={this.handleSubmit}
                                 type="submit">Login</button>
+                                <button
+                                className="btn btn-primary"
+                                onClick={this.changetoTrainer}
+                                type="submit">Trainer?</button>
                         </div>
+                        )}
+                        
                     </form></center>
                 </div>
                 </div>

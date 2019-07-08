@@ -47,6 +47,7 @@ class Signup extends Component {
 			lastname: this.state.lastname,
 			password: this.state.password,
 			zipcode: this.state.zipcode,
+			profilepic: this.state.profilepic,
 			isTrainer: true
 
 		})

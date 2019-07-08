@@ -45,6 +45,11 @@ input {
     height: 500px;
     box-shadow: 5px 10px 10px #111111;
 }
+#profilepic {
+    width: 400px;
+    float: left;
+    margin: 10px;
+}
 #logo {
     height: 150%;
     position: relative;

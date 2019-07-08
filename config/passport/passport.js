@@ -111,8 +111,8 @@ module.exports = function (passport, models) {
             firstname: req.body.firstname,
             lastname: req.body.lastname,
             password: userPassword,
-            profilepic: req.body.profilepic,
             zipcode: req.body.zipcode,
+            profilepic: req.body.profilepic,
             isTrainer: true
           };
           console.log(data);
@@ -168,5 +168,34 @@ module.exports = function (passport, models) {
       });
     }
   ));
+ //LOCAL TRAINER LOGIN
+ passport.use('local-trainer-login', new LocalStrategy(
+  {
+    usernameField: 'username',
+    passwordField: 'password',
+    passReqToCallback: true
+  },
+  function (req, username, password, done) {
+    // checks the database for matching passwords
+    var isValidPassword = function (userpass, password) {
+      return bCrypt.compareSync(password, userpass);
+    }
+    Trainer.findOne({ where: { username: username } }).then(function (trainer) {
+      if (!trainer) {
+        return done(null, false, { message: 'username does not exist' });
+      }
+      if (!isValidPassword(trainer.password, password)) {
+        return done(null, false, { message: 'Incorrect password.' });
+      }
+      var trainerinfo = trainer.get();
+      return done(null, trainerinfo);
+
+
+    }).catch(function (err) {
+      console.log("Error:", err);
+      return done(null, false, { message: 'Something went wrong with your Login' });
+    });
+  }
+));
 }
 

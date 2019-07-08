@@ -81,6 +81,7 @@ class App extends Component {
               render={() =>
                 <LoginForm
                   updateUser={this.updateUser}
+                  isTrainer={this.isTrainer}
                 />} />
 
             <Route
@@ -101,6 +102,13 @@ class App extends Component {
                 <Search updateUser={this.updateUser} loggedIn={this.state.loggedIn} />
               }
             />
+              <Route 
+              path="/myprofile"
+              render={() =>
+                <Profile updateUser={this.updateUser} loggedIn={this.state.loggedIn} isTrainer={this.state.isTrainer}
+                />
+              }
+              />
             <Route 
               path="/profile/:tusername"
               render={(props) =>

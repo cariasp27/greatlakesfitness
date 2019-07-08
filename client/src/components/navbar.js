@@ -37,7 +37,7 @@ class Navbar extends Component {
         console.log(this.props);
         let navbuttons;
         // render this if logged in as trainer
-        if (isTrainer) {
+        if (isTrainer && loggedIn) {
             navbuttons = < NavisTrainer onClick={this.logout} />
         }
 // render this if logged in

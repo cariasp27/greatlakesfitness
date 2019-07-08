@@ -68,6 +68,26 @@ module.exports = function (app, passport) {
             res.send(userInfo);
         }
     );
+    
+    ////////////////////////////// TRAINER/USER LOGIN ////////////////////////////////////////////////////////////
+    app.post(
+        '/login/trainer',
+        function (req, res, next) {
+            console.log("Incoming Login Request... \n");
+            console.log(req.body)
+            console.log('\n PASSPORT LOGIN AUTHENTICATION \n');
+            next()
+        },
+        // use passport to check both tables for a user/trainer
+        passport.authenticate('local-trainer-login'),
+        (req, res) => {
+            var userInfo = {
+                username: req.user.username
+            };
+            console.log("\n Login Successful... \n")
+            res.send(userInfo);
+        }
+    );
 
 
     ////////////////////////////// USER CHECK //////////////////////////////////////////////////////////////////////////////////////////
