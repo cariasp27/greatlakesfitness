@@ -26,7 +26,18 @@ module.exports = function (app, passport) {
         }
     );
 
-
+    ////////////////////////////// NEW REQUEST //////////////////////////////////////////////////////////////////////
+    app.post('/newrequest', (req, res) => {
+        db.request.create({
+            time: req.body.time,
+            date: req.body.date,
+            accepted: false,
+            userId: req.body.userId,
+            trainerId: req.body.trainerId
+        }).then((res) => {
+            res.send({"msg": "200"})
+        })
+    })
     ////////////////////////////// TRAINER SIGNUP //////////////////////////////////////////////////////////////////////
     app.post('/trainersignup',
         function (req, res, next) {
@@ -92,9 +103,13 @@ module.exports = function (app, passport) {
 
     ////////////////////////////// USER CHECK //////////////////////////////////////////////////////////////////////////////////////////
     app.get('/user', (req, res, next) => {
+        console.log(req.user)
         if (req.user) {
             res.json({ user: req.user })
-        } else {
+        } else if(req.trainer) {
+
+        } 
+        else {
             console.log("\n No User Found \n")
             res.send({ msg: '\n No User Found \n' }
             )
@@ -133,9 +148,7 @@ module.exports = function (app, passport) {
                 }
                 // send the trainer array to the front end
                 res.send({trainers})
-                if (err) {
-                    throw err;
-                }
+                
             });
         })
     });

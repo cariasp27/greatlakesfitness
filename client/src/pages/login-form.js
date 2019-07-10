@@ -10,7 +10,8 @@ class LoginForm extends Component {
         this.state = {
             username: '',
             password: '',
-            redirectTo: null
+            redirectTo: null,
+            isTrainer: false,
         }
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleTrainerSubmit = this.handleTrainerSubmit.bind(this)

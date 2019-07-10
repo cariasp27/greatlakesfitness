@@ -12,11 +12,14 @@ class Search extends Component {
     this.state = {
       loggedIn: false,
       username: null,
+      userId: '',
       trainers: [],
       zipcode: '',
       redirectTo: null,
       trainertodisplay: null,
-      displaytrainer: false
+      displaytrainer: false,
+      reqdate: '',
+      reqtime: '',
     }
 
     this.getUser = this.getUser.bind(this)
@@ -26,7 +29,19 @@ class Search extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.trainerbiorequest = this.trainerbiorequest.bind(this)
   }
+  handleReqSubmit(event) {
+    event.preventDefault();
+    axios.post('/newrequest', {
+      time: this.state.reqtime,
+      date: this.state.reqdate,
+      accepted: false,
+      userId: this.state.userId,
+      trainerId: this.state.trainertodisplay.trainer.id
 
+    }).then((res) =>{
+      res.send({"msg":"200"})
+    })
+  }
   handleSubmit(event) {
     event.preventDefault()
     API.findtrainers(this.state.zipcode)
@@ -39,6 +54,7 @@ class Search extends Component {
 
   }
   handleChange(event) {
+    console.log(event.target.value)
     this.setState({
       [event.target.name]: event.target.value
     })
@@ -50,8 +66,8 @@ class Search extends Component {
   updateUser(userObject) {
     this.setState(userObject)
   }
-  trainerbiorequest (trainer) {
 
+  trainerbiorequest (trainer) {
     console.log(trainer)
     this.setState({
       trainertodisplay: trainer,
@@ -66,6 +82,7 @@ class Search extends Component {
       if (response.data.user) {
         console.log('There is a user saved in the server session: ')
         this.setState({
+          userId: response.data.user.id,
           loggedIn: true,
           username: response.data.user.username
         })
@@ -112,8 +129,30 @@ class Search extends Component {
               <img src={trainer.profilepic} alt="Profile Pic" id="profilepic"></img>
                   <h1>{trainer.firstname + " " + trainer.lastname}</h1>
                   <h3>{trainer.zipcode}</h3>
+                  <h1>Request a Workout</h1>
+                  <center><form>
+                    <div className="form-group">
+                    <label htmlFor="date">Date: </label>
+                    <input
+                    className='form-input'
+                    type="text" 
+                    name="reqdate" 
+                    value={this.state.reqdate} 
+                    onChange={this.handleChange} />
+                    <label htmlFor="date">Time: </label>
+                    <input
+                    className='form-input'
+                    type="text"
+                    name="reqtime"
+                    value={this.state.reqtime}
+                    onChange={this.handleChange} />
+                    <button 
+                    className="btn-primary"
+                    onClick={this.handleReqSubmit}>Submit Request</button>
                   </div>
-                  ): (<h1></h1>)}
+                  </form></center>
+                  </div>
+                  ): (<div></div>)}
 
             {this.state.trainers.length ? (
                 <List>

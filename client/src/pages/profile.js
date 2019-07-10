@@ -82,7 +82,7 @@ class Profile extends Component {
                   <form className="form-horizontal" id>
                     <div className="form-group">
                     <textarea rows="4" cols="50" value={this.state.bio} onChange={this.handleChange}></textarea>
-                    <button className="btn-primary" type="submit" onClick={this.addbio}></button>
+                    <button className="btn-primary" type="submit" onClick={this.addbio}>Add Bio</button>
                     </div>
                   </form>
                 </div>
